@@ -962,6 +962,7 @@ interface Effect {
 	 * WARNING: Always false if the relevant data files aren't loaded.
 	 */
 	readonly exists: boolean;
+	readonly isCustom: boolean;
 }
 
 class PureEffect implements Effect {
@@ -970,11 +971,13 @@ class PureEffect implements Effect {
 	readonly name: string;
 	readonly gen: number;
 	readonly exists: boolean;
+	readonly isCustom: boolean;
 	constructor(id: ID, name: string) {
 		this.id = id;
 		this.name = name;
 		this.gen = 0;
 		this.exists = false;
+		this.isCustom = false;
 	}
 }
 
@@ -985,6 +988,7 @@ class Item implements Effect {
 	readonly name: string;
 	readonly gen: number;
 	readonly exists: boolean;
+	readonly isCustom: boolean;
 
 	readonly num: number;
 	readonly spritenum: number;
@@ -1012,6 +1016,7 @@ class Item implements Effect {
 		this.id = id;
 		this.gen = data.gen || 0;
 		this.exists = ('exists' in data ? !!data.exists : true);
+		this.isCustom = data.isCustom || false;
 
 		this.num = data.num || 0;
 		this.spritenum = data.spritenum || 0;
@@ -1103,6 +1108,7 @@ class Move implements Effect {
 	readonly name: string;
 	readonly gen: number;
 	readonly exists: boolean;
+	readonly isCustom: boolean;
 
 	readonly basePower: number;
 	readonly accuracy: number | true;
@@ -1141,6 +1147,7 @@ class Move implements Effect {
 		this.id = id;
 		this.gen = data.gen || 0;
 		this.exists = ('exists' in data ? !!data.exists : true);
+		this.isCustom = data.isCustom || false;
 
 		this.basePower = data.basePower || 0;
 		this.accuracy = data.accuracy || 0;
@@ -1268,6 +1275,7 @@ class Ability implements Effect {
 	readonly name: string;
 	readonly gen: number;
 	readonly exists: boolean;
+	readonly isCustom: boolean;
 
 	readonly num: number;
 	readonly shortDesc: string;
@@ -1284,6 +1292,7 @@ class Ability implements Effect {
 		this.id = id;
 		this.gen = data.gen || 0;
 		this.exists = ('exists' in data ? !!data.exists : true);
+		this.isCustom = data.isCustom || false;
 		this.num = data.num || 0;
 		this.shortDesc = data.shortDesc || data.desc || '';
 		this.desc = data.desc || data.shortDesc || '';
@@ -1315,7 +1324,7 @@ class Species implements Effect {
 	readonly name: string;
 	readonly gen: number;
 	readonly exists: boolean;
-
+	readonly isCustom: boolean;
 	// name
 	readonly baseSpecies: string;
 	readonly forme: string;
@@ -1369,6 +1378,7 @@ class Species implements Effect {
 		this.id = id;
 		this.gen = data.gen || 0;
 		this.exists = ('exists' in data ? !!data.exists : true);
+		this.isCustom = data.isCustom || false;
 		this.baseSpecies = data.baseSpecies || name;
 		this.forme = data.forme || '';
 		const baseId = toID(this.baseSpecies);

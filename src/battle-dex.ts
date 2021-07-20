@@ -512,6 +512,9 @@ const Dex = new class implements ModdedDex {
 			cryurl: '',
 			shiny: options.shiny,
 		};
+		if (species.isCustom) {
+			spriteData.url = "./sprites";
+		}
 		let name = species.spriteid;
 		let dir;
 		let facing;
@@ -853,6 +856,7 @@ class ModdedDex {
 
 			for (let i = Dex.gen - 1; i >= this.gen; i--) {
 				const table = window.BattleTeambuilderTable[`gen${i}`];
+				console.log(`gen${i}`);
 				if (id in table.overrideMoveData) {
 					Object.assign(data, table.overrideMoveData[id]);
 				}

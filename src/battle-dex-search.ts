@@ -1136,7 +1136,7 @@ class BattleItemSearch extends BattleTypedSearch<'item'> {
 		return true;
 	}
 	sort(results: SearchRow[], sortCol: string | null): SearchRow[] {
-		throw new Error("invalid sortcol");
+		throw new Error("invalid sFortcol");
 	}
 }
 

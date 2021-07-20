@@ -20,6 +20,12 @@
 				document.head.appendChild(scriptEl);
 			}
 			Config.testclient = true;
+			Config.server = {
+				id: "localhost:8000",
+				host: "localhost",
+				port: 8000
+			};
+			console.log(Config.server);
 			(function() {
 				if (location.search !== '') {
 					var m = /\?~~(([^:\/]*)(:[0-9]*)?)/.exec(location.search);

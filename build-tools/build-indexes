@@ -9,7 +9,7 @@ const rootDir = path.resolve(__dirname, '..');
 process.chdir(rootDir);
 
 if (!fs.existsSync('data/pokemon-showdown')) {
-	child_process.execSync('git clone https://github.com/smogon/pokemon-showdown.git', {
+	child_process.execSync('git clone https://github.com/myrrhion/pokemon-showdown.git', {
 		cwd: 'data',
 	});
 }
@@ -598,6 +598,7 @@ process.stdout.write("Building `data/teambuilder-tables.js`... ");
 		const greatItems = [['header', "Popular items"]];
 		const goodItems = [['header', "Items"]];
 		const specificItems = [['header', "Pok&eacute;mon-specific items"]];
+		const customItems = [['header', "Custom items"]];
 		const poorItems = [['header', "Usually useless items"]];
 		const badItems = [['header', "Useless items"]];
 		const unreleasedItems = [];
@@ -794,6 +795,8 @@ process.stdout.write("Building `data/teambuilder-tables.js`... ");
 					specificItems.push(id);
 				} else if (item.megaStone) {
 					specificItems.push(id);
+				} else if (item.isCustom) {
+					customItems.push(id);
 				} else {
 					goodItems.push(id);
 				}
@@ -802,6 +805,7 @@ process.stdout.write("Building `data/teambuilder-tables.js`... ");
 		items.push(...greatItems);
 		items.push(...goodItems);
 		items.push(...specificItems);
+		items.push(...customItems);
 		items.push(...poorItems);
 		items.push(...badItems);
 		items.push(...unreleasedItems);
