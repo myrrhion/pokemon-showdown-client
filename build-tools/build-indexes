@@ -1021,7 +1021,6 @@ process.stdout.write("Building `data/pokedex.js`... ");
 	const StandardPokedex = requireNoCache('../data/pokemon-showdown/.data-dist/pokedex.js').Pokedex;
 	const CustomPokedex = requireNoCache('../data/pokemon-showdown/.data-dist/custom/pokedex.js').Pokedex;
 	const Pokedex = Object.assign({} , StandardPokedex, CustomPokedex);
-	console.log(Pokedex);
 	for (const id in Pokedex) {
 		const entry = Pokedex[id];
 		if (Dex.data.FormatsData[id]) {
