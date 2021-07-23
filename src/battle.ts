@@ -2806,7 +2806,14 @@ class Battle {
 				this.scene.wait(700);
 				this.activateAbility(target, "Mummy", true);
 				break;
-
+			case 'infectiousbite': case 'infected':
+				if (!kwArgs.ability) break; // if Infectious activated but failed, no ability will have been sent
+				let ability2 = Dex.abilities.get(kwArgs.ability);
+				this.activateAbility(target, ability2.name);
+				this.activateAbility(poke, "Infected");
+				this.scene.wait(700);
+				this.activateAbility(target, "Infected", true);
+				break;
 			// item activations
 			case 'leppaberry':
 			case 'mysteryberry':

@@ -144,7 +144,7 @@ class BattleTextParser {
 				kwArgs.item = arg3;
 			} else if (id === 'magnitude') {
 				kwArgs.number = arg3;
-			} else if (id === 'skillswap' || id === 'mummy' || id === 'wanderingspirit') {
+			} else if (id === 'skillswap' || id === 'mummy' || id === 'wanderingspirit' || id === 'infected' || id === 'infectiousbite') {
 				kwArgs.ability = arg3;
 				kwArgs.ability2 = arg4;
 			} else if ([
@@ -837,13 +837,18 @@ class BattleTextParser {
 				return line1 + template.replace('[POKEMON]', this.pokemon(kwArgs.of)).replace('[SOURCE]', this.pokemon(pokemon));
 			}
 
-			if (id === 'mummy' && kwArgs.ability) {
+			if ((id === 'mummy' || id === 'infected' || id === 'infectiousbite') && kwArgs.ability) {
 				line1 += this.ability(kwArgs.ability, target);
-				line1 += this.ability('Mummy', target);
-				const template = this.template('changeAbility', 'mummy');
+				let template = '';
+				if (id === "mummy") {
+					line1 += this.ability('Mummy', target);
+					template = this.template('changeAbility', 'mummy');
+				} else {
+					line1 += this.ability('Infected', target);
+					template = this.template('changeAbility', 'infected');
+				}
 				return line1 + template.replace('[TARGET]', this.pokemon(target));
 			}
-
 			let templateId = 'activate';
 			if (id === 'forewarn' && pokemon === target) {
 				templateId = 'activateNoTarget';

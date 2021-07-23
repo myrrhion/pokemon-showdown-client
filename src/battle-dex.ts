@@ -167,6 +167,7 @@ interface TeambuilderSpriteData {
 	spriteDir: string;
 	spriteid: string;
 	shiny?: boolean;
+	isCustom?: boolean;
 }
 
 const Dex = new class implements ModdedDex {
@@ -513,7 +514,7 @@ const Dex = new class implements ModdedDex {
 			shiny: options.shiny,
 		};
 		if (species.isCustom) {
-			spriteData.url = "./sprites";
+			spriteData.url = "./sprites/";
 		}
 		let name = species.spriteid;
 		let dir;
@@ -743,6 +744,7 @@ const Dex = new class implements ModdedDex {
 			y: -3,
 		};
 		if (pokemon.shiny) spriteData.shiny = true;
+		if (species.isCustom) spriteData.isCustom = true;
 		if (Dex.prefs('nopastgens')) gen = 6;
 		let xydexExists = (!species.isNonstandard || species.isNonstandard === 'Past') || [
 			"pikachustarter", "eeveestarter", "meltan", "melmetal", "fidgit", "stratagem", "tomohawk", "mollux", "crucibelle", "crucibellemega", "kerfluffle", "pajantom", "jumbao", "caribolt", "smokomodo", "snaelstrom", "equilibra", "astrolotl", "scratchet", "pluffle", "smogecko", "pokestarufo", "pokestarufo2", "pokestarbrycenman", "pokestarmt", "pokestarmt2", "pokestargiant", "pokestarhumanoid", "pokestarmonster", "pokestarf00", "pokestarf002", "pokestarspirit",
@@ -778,7 +780,8 @@ const Dex = new class implements ModdedDex {
 		if (!pokemon) return '';
 		const data = this.getTeambuilderSpriteData(pokemon, gen);
 		const shiny = (data.shiny ? '-shiny' : '');
-		return 'background-image:url(' + Dex.resourcePrefix + data.spriteDir + shiny + '/' + data.spriteid + '.png);background-position:' + data.x + 'px ' + data.y + 'px;background-repeat:no-repeat';
+		const res = (data.isCustom ? "./" : Dex.resourcePrefix);
+		return 'background-image:url(' + res + data.spriteDir + shiny + '/' + data.spriteid + '.png);background-position:' + data.x + 'px ' + data.y + 'px;background-repeat:no-repeat';
 	}
 
 	getItemIcon(item: any) {
@@ -856,7 +859,6 @@ class ModdedDex {
 
 			for (let i = Dex.gen - 1; i >= this.gen; i--) {
 				const table = window.BattleTeambuilderTable[`gen${i}`];
-				console.log(`gen${i}`);
 				if (id in table.overrideMoveData) {
 					Object.assign(data, table.overrideMoveData[id]);
 				}

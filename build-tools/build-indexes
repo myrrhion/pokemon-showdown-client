@@ -1018,7 +1018,10 @@ console.log("DONE");
 process.stdout.write("Building `data/pokedex.js`... ");
 
 {
-	const Pokedex = requireNoCache('../data/pokemon-showdown/.data-dist/pokedex.js').Pokedex;
+	const StandardPokedex = requireNoCache('../data/pokemon-showdown/.data-dist/pokedex.js').Pokedex;
+	const CustomPokedex = requireNoCache('../data/pokemon-showdown/.data-dist/custom/pokedex.js').Pokedex;
+	const Pokedex = Object.assign({} , StandardPokedex, CustomPokedex);
+	console.log(Pokedex);
 	for (const id in Pokedex) {
 		const entry = Pokedex[id];
 		if (Dex.data.FormatsData[id]) {
@@ -1043,7 +1046,9 @@ console.log("DONE");
 process.stdout.write("Building `data/moves,items,abilities,typechart,learnsets.js`...");
 
 {
-	const Moves = requireNoCache('../data/pokemon-showdown/.data-dist/moves.js').Moves;
+	const StandardMoves = requireNoCache('../data/pokemon-showdown/.data-dist/moves.js').Moves;
+	const CustMoves = requireNoCache('../data/pokemon-showdown/.data-dist/custom/moves.js').Moves;
+	const Moves = Object.assign({} , StandardMoves, CustMoves);
 	for (const id in Moves) {
 		const move = Dex.moves.get(Moves[id].name);
 		if (move.desc) Moves[id].desc = move.desc;
@@ -1059,7 +1064,9 @@ process.stdout.write("Building `data/moves,items,abilities,typechart,learnsets.j
  *********************************************************/
 
 {
-	const Items = requireNoCache('../data/pokemon-showdown/.data-dist/items.js').Items;
+	const StandardItems = requireNoCache('../data/pokemon-showdown/.data-dist/items.js').Moves;
+	const CustomItems = requireNoCache('../data/pokemon-showdown/.data-dist/custom/items.js').Moves;
+	const Items = Object.assign({} , StandardItems, CustomItems);
 	for (const id in Items) {
 		const item = Dex.items.get(Items[id].name);
 		if (item.desc) Items[id].desc = item.desc;
@@ -1074,7 +1081,9 @@ process.stdout.write("Building `data/moves,items,abilities,typechart,learnsets.j
  *********************************************************/
 
 {
-	const Abilities = requireNoCache('../data/pokemon-showdown/.data-dist/abilities.js').Abilities;
+	const StandardAbilites = requireNoCache('../data/pokemon-showdown/.data-dist/abilities.js').Moves;
+	const CustomAbilities = requireNoCache('../data/pokemon-showdown/.data-dist/custom/abilities.js').Moves;
+	const Abilities = Object.assign({} , StandardAbilites, CustomAbilities);
 	for (const id in Abilities) {
 		const ability = Dex.abilities.get(Abilities[id].name);
 		if (ability.desc) Abilities[id].desc = ability.desc;
@@ -1099,7 +1108,9 @@ process.stdout.write("Building `data/moves,items,abilities,typechart,learnsets.j
  *********************************************************/
 
 {
-	const Aliases = requireNoCache('../data/pokemon-showdown/.data-dist/aliases.js').Aliases;
+	const StandardAliases = requireNoCache('../data/pokemon-showdown/.data-dist/aliases.js').Moves;
+	const CustomAliases = requireNoCache('../data/pokemon-showdown/.data-dist/custom/aliases.js').Moves;
+	const Aliases = Object.assign({} , StandardAliases, CustomAliases);
 	const buf = 'exports.BattleAliases = ' + es3stringify(Aliases) + ';';
 	fs.writeFileSync('data/aliases.js', buf);
 }
@@ -1129,7 +1140,9 @@ process.stdout.write("Building `data/moves,items,abilities,typechart,learnsets.j
  *********************************************************/
 
 {
-	const Learnsets = requireNoCache('../data/pokemon-showdown/.data-dist/learnsets.js').Learnsets;
+	const StandardLearnsets = requireNoCache('../data/pokemon-showdown/.data-dist/learnsets.js').Moves;
+	const CustomLearnsets = requireNoCache('../data/pokemon-showdown/.data-dist/custom/learnsets.js').Moves;
+	const Learnsets = Object.assign({} , StandardLearnsets, CustomLearnsets);
 	const buf = 'exports.BattleLearnsets = ' + es3stringify(Learnsets) + ';';
 	fs.writeFileSync('data/learnsets.js', buf);
 }
