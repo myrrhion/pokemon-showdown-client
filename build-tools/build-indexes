@@ -1083,7 +1083,6 @@ process.stdout.write("Building `data/moves,items,abilities,typechart,learnsets.j
 	const StandardAbilities = requireNoCache('../data/pokemon-showdown/.data-dist/abilities.js').Abilities;
 	const CustomAbilities = requireNoCache('../data/pokemon-showdown/.data-dist/custom/abilities.js').Abilities;
 	const Abilities = Object.assign({} , StandardAbilities, CustomAbilities);
-	console.log(StandardAbilities);
 	for (const id in Abilities) {
 		const ability = Dex.abilities.get(Abilities[id].name);
 		if (ability.desc) Abilities[id].desc = ability.desc;
