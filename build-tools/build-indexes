@@ -1063,8 +1063,8 @@ process.stdout.write("Building `data/moves,items,abilities,typechart,learnsets.j
  *********************************************************/
 
 {
-	const StandardItems = requireNoCache('../data/pokemon-showdown/.data-dist/items.js').Moves;
-	const CustomItems = requireNoCache('../data/pokemon-showdown/.data-dist/custom/items.js').Moves;
+	const StandardItems = requireNoCache('../data/pokemon-showdown/.data-dist/items.js').Items;
+	const CustomItems = requireNoCache('../data/pokemon-showdown/.data-dist/custom/items.js').Items;
 	const Items = Object.assign({} , StandardItems, CustomItems);
 	for (const id in Items) {
 		const item = Dex.items.get(Items[id].name);
@@ -1080,9 +1080,10 @@ process.stdout.write("Building `data/moves,items,abilities,typechart,learnsets.j
  *********************************************************/
 
 {
-	const StandardAbilites = requireNoCache('../data/pokemon-showdown/.data-dist/abilities.js').Moves;
-	const CustomAbilities = requireNoCache('../data/pokemon-showdown/.data-dist/custom/abilities.js').Moves;
-	const Abilities = Object.assign({} , StandardAbilites, CustomAbilities);
+	const StandardAbilities = requireNoCache('../data/pokemon-showdown/.data-dist/abilities.js').Abilities;
+	const CustomAbilities = requireNoCache('../data/pokemon-showdown/.data-dist/custom/abilities.js').Abilities;
+	const Abilities = Object.assign({} , StandardAbilities, CustomAbilities);
+	console.log(StandardAbilities);
 	for (const id in Abilities) {
 		const ability = Dex.abilities.get(Abilities[id].name);
 		if (ability.desc) Abilities[id].desc = ability.desc;
@@ -1107,8 +1108,8 @@ process.stdout.write("Building `data/moves,items,abilities,typechart,learnsets.j
  *********************************************************/
 
 {
-	const StandardAliases = requireNoCache('../data/pokemon-showdown/.data-dist/aliases.js').Moves;
-	const CustomAliases = requireNoCache('../data/pokemon-showdown/.data-dist/custom/aliases.js').Moves;
+	const StandardAliases = requireNoCache('../data/pokemon-showdown/.data-dist/aliases.js').Aliases;
+	const CustomAliases = requireNoCache('../data/pokemon-showdown/.data-dist/custom/aliases.js').Aliases;
 	const Aliases = Object.assign({} , StandardAliases, CustomAliases);
 	const buf = 'exports.BattleAliases = ' + es3stringify(Aliases) + ';';
 	fs.writeFileSync('data/aliases.js', buf);
@@ -1139,8 +1140,8 @@ process.stdout.write("Building `data/moves,items,abilities,typechart,learnsets.j
  *********************************************************/
 
 {
-	const StandardLearnsets = requireNoCache('../data/pokemon-showdown/.data-dist/learnsets.js').Moves;
-	const CustomLearnsets = requireNoCache('../data/pokemon-showdown/.data-dist/custom/learnsets.js').Moves;
+	const StandardLearnsets = requireNoCache('../data/pokemon-showdown/.data-dist/learnsets.js').Learnsets;
+	const CustomLearnsets = requireNoCache('../data/pokemon-showdown/.data-dist/custom/learnsets.js').Learnsets;
 	const Learnsets = Object.assign({} , StandardLearnsets, CustomLearnsets);
 	const buf = 'exports.BattleLearnsets = ' + es3stringify(Learnsets) + ';';
 	fs.writeFileSync('data/learnsets.js', buf);
