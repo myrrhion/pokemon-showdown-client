@@ -415,7 +415,9 @@ function toId() {
 			// 		type: 'modal'
 			// 	});
 			} else {
-				if (document.location.hostname === Config.routes.client || Config.testclient) {
+				console.log(document.location.hostname);
+				console.log(Config.routes.client);
+				if (document.location.hostname === Config.routes.client || Config.testclient || document.location.hostname === "localhost") {
 					this.addRoom('rooms', null, true);
 				} else {
 					this.addRoom('lobby', null, true);

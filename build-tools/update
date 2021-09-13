@@ -55,6 +55,7 @@ Config.routes = {
 	dex: '${routes.dex}',
 	replays: '${routes.replays}',
 	users: '${routes.users}',
+	play: '${routes.play}',
 };
 ${AUTOCONFIG_END}`;
 

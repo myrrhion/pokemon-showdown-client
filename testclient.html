@@ -131,8 +131,10 @@
 		<script src="data/aliases.js" async="async" onerror="loadRemoteData(this.src)"></script>
 
 		<script>
+			console.log("Here?");
 			window.onload = () => {
 				window.app = new App();
+				console.log(window.app.user);
 			}
 		</script>
 
