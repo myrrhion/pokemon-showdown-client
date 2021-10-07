@@ -726,7 +726,7 @@ const Dex = new class implements ModdedDex {
 		let top = Math.floor(num / 12) * 30;
 		let left = (num % 12) * 40;
 		let fainted = ((pokemon as Pokemon | ServerPokemon)?.fainted ? `;opacity:.3;filter:grayscale(100%) brightness(.5)` : ``);
-		return `background:transparent url(${Dex.resourcePrefix}sprites/pokemonicons-sheet.png?v5) no-repeat scroll -${left}px -${top}px${fainted}`;
+		return `background:transparent url(${Dex.resourcePrefix}sprites/pokemonicons-sheet.png?v6) no-repeat scroll -${left}px -${top}px${fainted}`;
 	}
 
 	getTeambuilderSpriteData(pokemon: any, gen: number = 0): TeambuilderSpriteData {
@@ -842,7 +842,7 @@ class ModdedDex {
 	pokeballs: string[] | null = null;
 	constructor(modid: ID) {
 		this.modid = modid;
-		let gen = parseInt(modid.slice(3), 10);
+		const gen = parseInt(modid.substr(3, 1), 10);
 		if (!modid.startsWith('gen') || !gen) throw new Error("Unsupported modid");
 		this.gen = gen;
 	}
@@ -865,6 +865,10 @@ class ModdedDex {
 			}
 			if (this.gen <= 3 && data.category !== 'Status') {
 				data.category = Dex.getGen3Category(data.type);
+			}
+			const table = window.BattleTeambuilderTable[this.modid];
+			if (this.modid === 'gen7letsgo' && id in table.overrideMoveData) {
+				Object.assign(data, table.overrideMoveData[id]);
 			}
 
 			const move = new Move(id, name, data);
@@ -940,8 +944,8 @@ class ModdedDex {
 					Object.assign(data, table.overrideSpeciesData[id]);
 				}
 			}
-			if (this.gen < 3) {
-				data.abilities = {0: "None"};
+			if (this.gen < 3 || this.modid === 'gen7letsgo') {
+				data.abilities = {0: "No Ability"};
 			}
 
 			const table = window.BattleTeambuilderTable[this.modid];

@@ -1431,7 +1431,7 @@ export class Battle {
 
 				if (
 					!target && this.gameType === 'singles' &&
-					!['self', 'allies', 'allySide', 'adjacentAlly', 'adjacentAllyOrSelf'].includes(move.target)
+					!['self', 'allies', 'allySide', 'adjacentAlly', 'adjacentAllyOrSelf', 'allyTeam'].includes(move.target)
 				) {
 					// Hardcode for moves without a target in singles
 					foeTargets.push(pokemon.side.foe.active[0]);
@@ -2540,6 +2540,10 @@ export class Battle {
 				}
 				break;
 
+			// Gen 1-2
+			case 'mist':
+				this.scene.resultAnim(poke, 'Mist', 'good');
+				break;
 			// Gen 1
 			case 'lightscreen':
 				this.scene.resultAnim(poke, 'Light Screen', 'good');
@@ -3214,6 +3218,9 @@ export class Battle {
 			if (this.tier.slice(-8) === ' (Blitz)') {
 				this.messageFadeTime = 40;
 				this.isBlitz = true;
+			}
+			if (this.tier.includes(`Let's Go`)) {
+				this.dex = Dex.mod('gen7letsgo' as ID);
 			}
 			this.log(args);
 			break;
